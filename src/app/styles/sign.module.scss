@@ -1,0 +1,39 @@
+@use "../../styles/base";
+
+.main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.container {
+    width: 100%;
+    margin-top: 8%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1 {
+        width: 17%;
+        font-size: 38px;
+        text-align: center;
+        color: black;
+        span {
+        color: base.$primary-blue
+        }
+    }
+
+    form {
+        span {
+            width: 100%;
+            display: flex;
+            color: base.$error-color;
+            margin-top: .1rem;
+            display: flex;
+        }
+        div:not(:first-child) {
+            margin-top: 1rem;
+        }
+    }
+    }

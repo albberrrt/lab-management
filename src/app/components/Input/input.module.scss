@@ -1,0 +1,47 @@
+@use "../../../styles/base";
+
+.input {
+    height: 56px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: base.$primary-light-gray;
+    border-bottom: 2px solid #00000033;
+    border-radius: 6px;
+    transition: all 200ms ease-in-out;
+    
+    &:focus-within  {
+        border-bottom: 2px solid base.$primary-blue;
+    }
+    input {
+        width: calc(100% - 1rem);
+        height: 95%;
+        position: absolute;
+        padding: 0 0 0 1rem;
+        bottom: 0;
+        font-size: 16px;
+        font-family: 'Inter', sans-serif;
+        background: none;
+        border: 0;
+        border-radius: 6px;
+        outline: none;
+        border-radius: 6px;
+        
+        &:not(:placeholder-shown) + label {
+            opacity: 0;
+        }
+    }
+
+    label {
+        position: absolute;
+        color: base.$secondary-dark-blue;
+        left: 1rem;
+        font-size: 16px;
+        cursor: text;
+    }
+
+}
+
+.error {
+    border-bottom: 2px solid base.$error-color !important;
+}
