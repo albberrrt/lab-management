@@ -11,8 +11,17 @@ export async function POST(request: Request) {
     password: z.string(),
   });
 
+  type CreateUserResponse = {
+    userData: {
+      name: string;
+      email: string;
+      avatarUrl: string;  
+    }
+    token: string;
+  };
+
   try {
-    const { name, email, password } = createUserBody.parse(request.body);
+    const { name, email, password } = createUserBody.parse(await request.json());
     const id = createId()
 
     const firstLetterOfUsername = name.charAt(0).toUpperCase();
@@ -30,12 +39,16 @@ export async function POST(request: Request) {
 
     const tokenJwt = generateToken(id);
 
-    return NextResponse.json({
-      name: name,
-      email: email,
-      avatarUrl: avatarUrl,
+    const response: CreateUserResponse = {
+      userData: {
+        name: name,
+        email: email,
+        avatarUrl: avatarUrl,
+      },
       token: tokenJwt,
-    })
+    };
+
+    return NextResponse.json(response)
 
   } catch (error:any) {
     console.log(`error: ${error}`);
