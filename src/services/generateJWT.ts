@@ -7,11 +7,10 @@ export function generateToken(userId: string): string {
         throw new Error('JWT_SECRET is not defined in .env file');
     }
 
-    const payload = {
-        userId: userId,
-    };
-
-    const token = jwt.sign(payload, jwtSecret, { expiresIn: '1h'});
+    const token = jwt.sign({}, jwtSecret, {
+        subject: userId,
+        expiresIn: '20s'
+    });
 
     return token;
 }

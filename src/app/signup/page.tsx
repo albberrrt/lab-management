@@ -11,7 +11,7 @@ import sty from "../styles/sign.module.scss";
 import Button from "../components/Button/Button";
 
 const createUserFormSchema = z.object({
-  username: z.string()
+  name: z.string()
     .nonempty('Username is required')
     .transform(name => {
       return name.trim()
@@ -38,7 +38,7 @@ export default function SignUpPage() {
     resolver: zodResolver(createUserFormSchema),
   });
 
-  const { signUp } = useContext(AuthContext);
+  const { signUp, isAuthenticated } = useContext(AuthContext);
   
   async function handleSignUp(data: CreateUserFormData) {
     
@@ -50,6 +50,7 @@ export default function SignUpPage() {
     }
 
   }
+  console.log(isAuthenticated)
 
 
   return (
@@ -60,15 +61,15 @@ export default function SignUpPage() {
             <form onSubmit={handleSubmit(handleSignUp)}>
               <Input
                 register={register}
-                name="username"
+                name="name"
                 width="480px" 
-                placeholder="Username" 
+                placeholder="Name" 
                 type="text" 
                 id="user" 
                 alt="Please fill out this field."
-                error={errors.username ? true : false}
+                error={errors.name ? true : false}
               />
-              {errors.username && <span>{errors.username.message}</span>}
+              {errors.name && <span>{errors.name.message}</span>}
               <Input
                 register={register}
                 name="email"

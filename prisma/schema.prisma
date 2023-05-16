@@ -17,6 +17,7 @@ model User {
   password String
   avatarUrl String
   labCalls LabCall[]
+  refreshToken RefreshToken?
 }
 
 model LabCall {
@@ -44,4 +45,11 @@ model Lab {
   number Int @unique
   floor Int
   computers Computer[]
+}
+
+model RefreshToken {
+  id String @id @default(uuid())
+  expiresIn Int
+  user User @relation(fields: [userId], references: [id])
+  userId String @unique
 }

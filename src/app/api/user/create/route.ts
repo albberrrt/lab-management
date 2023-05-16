@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { generateToken } from "@/services/generateJWT";
+import { generateRefreshToken } from "@/services/generateRefreshToken";
 import { createId } from "@paralleldrive/cuid2";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -18,6 +19,11 @@ export async function POST(request: Request) {
       avatarUrl: string;  
     }
     token: string;
+    refreshToken: {
+      id: string;
+      expiresIn: number;
+      userId: string;
+    };
   };
 
   try {
@@ -38,6 +44,7 @@ export async function POST(request: Request) {
     })
 
     const tokenJwt = generateToken(id);
+    const refreshToken = generateRefreshToken(id);
 
     const response: CreateUserResponse = {
       userData: {
@@ -46,6 +53,7 @@ export async function POST(request: Request) {
         avatarUrl: avatarUrl,
       },
       token: tokenJwt,
+      refreshToken: refreshToken,
     };
 
     return NextResponse.json(response)
